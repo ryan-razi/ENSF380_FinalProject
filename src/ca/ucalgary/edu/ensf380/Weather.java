@@ -9,16 +9,29 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import java.util.regex.*;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Weather {
 	
-	private int temp;
-	private String date;
+	private String temp;
 	private String cityCode;
 	
-    public static void main(String[] args) {
+    public Weather(String cityCode) {
+		this.cityCode = cityCode;
+		findTemperature();
+	}
+
+	public static void main(String[] args) {
     	
-        // get the path to the chrome driver
+    	Weather weather = new Weather("5913490");
+    	System.out.println(weather.getTemp());
+    	
+    	
+    }
+    
+    public void findTemperature() {
+    	
+    	// get the path to the chrome driver
         System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
         
         // chrome driver option to make it so that it doesnt bring up the chrome tab everytime it gets the information
@@ -29,7 +42,7 @@ public class Weather {
         WebDriver driver = new ChromeDriver(options);
 
         // create the url and makes the driver go to the desired url
-        String url = "https://openweathermap.org/city/5913490";
+        String url = "https://openweathermap.org/city/" + cityCode;
         driver.get(url);
 
         // wait for the page to fully load
@@ -51,10 +64,30 @@ public class Weather {
 
         // find the temperature
         matcher.find();
-        String temperature = matcher.group(1);
-        System.out.println("Temperature: " + temperature);
+        String temp = matcher.group(1);
+        this.temp = temp;
         
         // closer the web driver
         driver.quit();
+    	
     }
+    
+
+	public String getTemp() {
+		return temp;
+	}
+
+	public void setTemp(String temp) {
+		this.temp = temp;
+	}
+
+	public String getCityCode() {
+		return cityCode;
+	}
+
+	public void setCityCode(String cityCode) {
+		this.cityCode = cityCode;
+	}
+    
+    
 }

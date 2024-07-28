@@ -13,7 +13,17 @@ public class News {
     private String topic;
     private String[] titles;
     private final static String apiKey = "517e93b4e94f45dcb955dca5b3da677d";
-
+    
+    public static void main(String[] args) {
+        News news = new News("Tesla");
+        String[] titles = news.getTitles();
+        
+        for (String title : titles) {
+            System.out.println(title);
+        }
+    }
+    
+    
     // Constructor for generating news based on your topic
     public News(String topic) {
         this.topic = topic;
