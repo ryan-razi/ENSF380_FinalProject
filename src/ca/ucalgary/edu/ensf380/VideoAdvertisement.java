@@ -1,5 +1,12 @@
 package ca.ucalgary.edu.ensf380;
 
+/**
+ * An extension of the advertisement class that inherits all of its attributes, but more specifically used for videos.
+ * @author Ryan Razi
+ * @version 1.0
+ * @since 1.0
+ */
+
 public class VideoAdvertisement extends Advertisement {
 	
 	private double videoLength;

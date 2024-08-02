@@ -14,6 +14,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Main application used to display the subway screen to the user.
+ * Uses JFrame in order to create a GUI for us to see everything.
+ * @author Ryan Razi
+ * @version 1.0
+ * @since 1.0
+ */
+
 public class Application extends JFrame {
 
 	private News news;
@@ -25,10 +33,6 @@ public class Application extends JFrame {
 	private JPanel newsPanel;
 	private JPanel trainStationPanel;
 
-	private final String username;
-	private final String password;
-	private static final String DATABASE = "jdbc:mysql://localhost:3306/advertisements";
-
 	public static void main(String[] args) {
 
 		// gets all the arguements so we can use them to create an instance of our
@@ -37,26 +41,28 @@ public class Application extends JFrame {
 		String password = args[1];
 		String newsTopic = args[2];
 		String cityCode = args[3];
-
+		
+		// connect to the database to get our ads
+		Database db = new Database(username, password);
+		ArrayList<Advertisement> ads = db.retrieveAllAdvertisements();
+		
 		// create an instance of our application
-		Application app = new Application(newsTopic, username, password, cityCode);
+		Application app = new Application(newsTopic, cityCode, ads);
 
 		// set our application to be visibile
 		app.setVisible(true);
 
 	}
 
-	public Application(String newsTopic, final String username, final String password, String cityCode) {
+	public Application(String newsTopic,  String cityCode, ArrayList<Advertisement> ads) {
 
 		this.news = new News(newsTopic);
-		this.username = username;
-		this.password = password;
-		this.ads = retrieveAllAdvertisements(username, password);
-		// this.weather = new Weather(cityCode);
+		this.ads = ads;
+		this.weather = new Weather(cityCode);
 
 		// make the 4 panels for each section
 		this.advertisementPanel = createAdvertisementPanel(ads);
-		this.weatherPanel = createWeatherPanel();
+		this.weatherPanel = createWeatherPanel(weather);
 		this.newsPanel = createNewsPanel(news.getTitles());
 		this.trainStationPanel = createTrainStationPanel();
 
@@ -85,7 +91,7 @@ public class Application extends JFrame {
 		// create the second panel
 		gbc.gridx = 1;
 		gbc.gridy = 0;
-		gbc.weightx = 0.1;
+		gbc.weightx = 1.2;
 		gbc.weighty = 0.3;
 		gbc.fill = GridBagConstraints.BOTH;
 		add(weatherPanel, gbc);
@@ -109,7 +115,12 @@ public class Application extends JFrame {
 		add(trainStationPanel, gbc);
 
 	}
-
+	
+	/**
+     * Gets data from the train station simulator, and puts it on top of an image that displays where we currently are
+     * @return a JPanel with image and text over it, that is continuously updating
+     */
+	
 	public static JPanel createTrainStationPanel() {
 
 		// create the panel
@@ -139,8 +150,15 @@ public class Application extends JFrame {
 
 		return panel;
 	}
-
-	public static JPanel createAdvertisementPanel(List<Advertisement> advertisements) {
+	
+	/**
+     * creates a panel that reads the ArrayList of advertisements and continuously displays all the ads in the list, 
+     * as well as the current location of the trains every once in a while
+     * @param ads the ArrayList of Advertisements
+     * @return a JPanel with images/gifs of ads continuously looping
+     */
+	
+	public static JPanel createAdvertisementPanel(ArrayList<Advertisement> ads) {
 		
 		// create new panel
         JPanel panel = new JPanel(new BorderLayout());
@@ -157,8 +175,8 @@ public class Application extends JFrame {
         	// continuously loop through the advertisements and continuously show them
         	@Override
             public void actionPerformed(ActionEvent e) {
-        		index = index % advertisements.size();
-        		byte[] data = advertisements.get(index).getData(); // get the data from the advertisement
+        		index = index % ads.size();
+        		byte[] data = ads.get(index).getData(); // get the data from the advertisement
         		ImageIcon imageIcon = new ImageIcon(data); // set the imageIcon with the image data
         		adLabel.setIcon(imageIcon); // add the image icon to the label
                 index++;
@@ -171,7 +189,14 @@ public class Application extends JFrame {
         return panel;
     }
 	
-	public static JPanel createWeatherPanel() {
+	/**
+     * creates a weather panel that displays the current temperature of the city, as well as the current time
+     * @param weather, contains the city code and current weather of that city in °C
+     * @return a JPanel that contains the current weather of the city in °C, as well as current time
+     */
+	
+	// might add little icons to display how hot or cold it is
+	public static JPanel createWeatherPanel(Weather weather) {
 
 		// create the panel
 		JPanel panel = new JPanel(new GridBagLayout());
@@ -188,8 +213,8 @@ public class Application extends JFrame {
 		Font font = new Font("Arial", Font.BOLD, 24);
 		timeLabel.setFont(font);
 		
-		// create a label for displaying the weather // temporarily just uses 20 as default
-		JLabel tempLabel = new JLabel("Current Temperature: 20°C");
+		// create a label for displaying the weather 
+		JLabel tempLabel = new JLabel(weather.getTemp());
 		tempLabel.setForeground(Color.BLACK);
 		tempLabel.setFont(font);
 		
@@ -213,7 +238,11 @@ public class Application extends JFrame {
 		return panel;
 	}
 	
-	
+	/**
+     * creates a weather panel that continuously scrolls with text of news relating to a certain topic
+     * @param titles, a String array of news titles relating to a topic generated from an instance of the news class
+     * @return a JPanel that continuously scrolls right to left displaying new titles of a topic
+     */
 	public static JPanel createNewsPanel(String[] titles) {
 		
 		// create the panel
@@ -267,44 +296,6 @@ public class Application extends JFrame {
 		return panel;
 	}
 
-	public static ArrayList<Advertisement> retrieveAllAdvertisements(final String user, final String password) {
-		
-		// create an arraylist of advertisements
-		ArrayList<Advertisement> advertisements = new ArrayList<>();
-
-		try {
-			// create a connection to our database
-			Connection connection = DriverManager.getConnection(DATABASE, user, password);
-
-			// sql query to get all the data from our database
-			String query = "SELECT name, type, data FROM Ads";
-			PreparedStatement preparedStatement = connection.prepareStatement(query);
-
-			// create a result set from what we got back from the query
-			ResultSet resultSet = preparedStatement.executeQuery();
-
-			// get all of the data from the result set
-			while (resultSet.next()) {
-				
-				// create video and image advertisements based on the "type" field that it got back from the database
-				String name = resultSet.getString("name");
-				String type = resultSet.getString("type");
-				byte[] data = resultSet.getBytes("data");
-				
-				if (type.equalsIgnoreCase("jpeg")) {
-					advertisements.add(new ImageAdvertisement(name, type, data));
-				} else if (type.equalsIgnoreCase("gif")) {
-					advertisements.add(new VideoAdvertisement(name, type, data, 10.0));
-				}
-
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} 
-
-		return advertisements;
-	}
-
 	public News getNews() {
 		return news;
 	}
@@ -320,5 +311,47 @@ public class Application extends JFrame {
 	public void setWeather(Weather weather) {
 		this.weather = weather;
 	}
+
+	public ArrayList<Advertisement> getAds() {
+		return ads;
+	}
+
+	public void setAds(ArrayList<Advertisement> ads) {
+		this.ads = ads;
+	}
+
+	public JPanel getAdvertisementPanel() {
+		return advertisementPanel;
+	}
+
+	public void setAdvertisementPanel(JPanel advertisementPanel) {
+		this.advertisementPanel = advertisementPanel;
+	}
+
+	public JPanel getWeatherPanel() {
+		return weatherPanel;
+	}
+
+	public void setWeatherPanel(JPanel weatherPanel) {
+		this.weatherPanel = weatherPanel;
+	}
+
+	public JPanel getNewsPanel() {
+		return newsPanel;
+	}
+
+	public void setNewsPanel(JPanel newsPanel) {
+		this.newsPanel = newsPanel;
+	}
+
+	public JPanel getTrainStationPanel() {
+		return trainStationPanel;
+	}
+
+	public void setTrainStationPanel(JPanel trainStationPanel) {
+		this.trainStationPanel = trainStationPanel;
+	}
+	
+	
 
 }

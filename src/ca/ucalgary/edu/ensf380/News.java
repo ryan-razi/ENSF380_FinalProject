@@ -8,6 +8,14 @@ import java.util.Scanner;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+/**
+ * News class that contains a topic and a whole bunch of titles of articles based on that topic.
+ * Gets its articles from newapi.org.
+ * @author Ryan Razi
+ * @version 1.0
+ * @since 1.0
+ */
+
 public class News {
     
     private String topic;
@@ -46,9 +54,13 @@ public class News {
     public void setTitles(String[] titles) {
         this.titles = titles;
     }
-
-    // function to help generate the news titles based on the topic
-    private String[] generateNews() {
+    
+    /**
+     * Generates news based on a topic that is given.
+     * @return an array of Strings containing news article titles about the topic given
+     */
+    
+    public String[] generateNews() {
         try {
             // Create the url for the news we want to get information about
             URL url = new URL("https://newsapi.org/v2/everything?q=" + topic + "&language=en&apiKey=" + apiKey);

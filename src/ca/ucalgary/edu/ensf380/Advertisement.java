@@ -6,6 +6,13 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Advertisement class used for storing the information about the ads.
+ * @author Ryan Razi
+ * @version 1.0
+ * @since 1.0
+ */
+
 public class Advertisement {
     
     private String name;
@@ -29,5 +36,17 @@ public class Advertisement {
     public byte[] getData() {
         return data;
     }
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public void setData(byte[] data) {
+		this.data = data;
+	}
 
 }
