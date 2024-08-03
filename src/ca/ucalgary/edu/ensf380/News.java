@@ -3,6 +3,7 @@ package ca.ucalgary.edu.ensf380;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import org.json.JSONArray;
@@ -23,14 +24,13 @@ public class News {
     private final static String apiKey = "517e93b4e94f45dcb955dca5b3da677d";
     
     public static void main(String[] args) {
-        News news = new News("Tesla");
+        News news = new News("ascfafcac");
         String[] titles = news.getTitles();
         
         for (String title : titles) {
             System.out.println(title);
         }
     }
-    
     
     // Constructor for generating news based on your topic
     public News(String topic) {
@@ -58,9 +58,13 @@ public class News {
     /**
      * Generates news based on a topic that is given.
      * @return an array of Strings containing news article titles about the topic given
+     * @throws IllegalArgumentException 
      */
     
-    public String[] generateNews() {
+    public String[] generateNews() throws IllegalArgumentException {
+    	
+    	ArrayList<String> validTitles = new ArrayList<>();
+    	
         try {
             // Create the url for the news we want to get information about
             URL url = new URL("https://newsapi.org/v2/everything?q=" + topic + "&language=en&apiKey=" + apiKey);
@@ -93,22 +97,27 @@ public class News {
                 // Parse through the JSON response to get the articles
                 JSONObject jsonResponse = new JSONObject(informationString.toString());
                 JSONArray articles = jsonResponse.getJSONArray("articles");
-
+                
+                // If we can't find an articles, throw an exception
+                if (articles.length() == 0) {
+                    throw new IllegalArgumentException("No articles found for the given topic.");
+                }
+                
                 // From the articles, we get up to 10 of the titles, and put it into a string array called titles
-                int numArticles = Math.min(10, articles.length());
-                titles = new String[numArticles];
-
-                for (int i = 0; i < numArticles; i++) {
+                for (int i = 0; i < articles.length() && validTitles.size() < 10; i++) {
                     JSONObject article = articles.getJSONObject(i);
                     String title = article.getString("title");
-                    titles[i] = title;
+                    
+                    // sometimes it gave "[Removed]" for some reason so here we make sure "[Removed]" doesn't get added to the ArrayList
+                    if (!title.equals("[Removed]")) {
+                        validTitles.add(title);
+                    }
                 }
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return titles;
+        return validTitles.toArray(new String[0]);
     }
-
 }

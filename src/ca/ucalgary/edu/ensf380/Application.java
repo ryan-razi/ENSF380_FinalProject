@@ -91,7 +91,7 @@ public class Application extends JFrame {
 		// create the second panel
 		gbc.gridx = 1;
 		gbc.gridy = 0;
-		gbc.weightx = 1.2;
+		gbc.weightx = 1.5;
 		gbc.weighty = 0.3;
 		gbc.fill = GridBagConstraints.BOTH;
 		add(weatherPanel, gbc);

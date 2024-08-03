@@ -46,7 +46,7 @@ public class Database {
                     String type = resultSet.getString("type");
                     byte[] data = resultSet.getBytes("data");
 
-                    if (type.equalsIgnoreCase("jpeg")) {
+                    if (type.equalsIgnoreCase("jpeg") || type.equalsIgnoreCase("jpg")) {
                         advertisements.add(new ImageAdvertisement(name, type, data));
                     } else if (type.equalsIgnoreCase("gif")) {
                         advertisements.add(new VideoAdvertisement(name, type, data, 10.0));
@@ -54,7 +54,7 @@ public class Database {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+
         }
 
         return advertisements;
