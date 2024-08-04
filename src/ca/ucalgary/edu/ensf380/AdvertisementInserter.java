@@ -18,15 +18,15 @@ public class AdvertisementInserter {
 
     public static void main(String[] args) {
 
-    	// put name of ad, datatype extension of ad (gif, jpg/jpeg), path to ad
+    	// put name of ad, filetype extension of ad (gif, jpg/jpeg), path to ad
         insertAd("Disney", "jpg", "\\path");
     }
     
     /**
      * Gets data from the user and ads it to the database
-     * @params name of ad, dataype extension of ad, filepath to the ad
+     * @params name of ad, filetype extension of ad, filepath to the ad
      */
-    public static void insertAd(String name, String dataType, String filePath) {
+    public static void insertAd(String name, String fileType, String filePath) {
 
         String url = "jdbc:mysql://localhost:3306/advertisements";
         String user = ""; // put user here
@@ -39,7 +39,7 @@ public class AdvertisementInserter {
              FileInputStream inputStream = new FileInputStream(filePath)) {
 
             statement.setString(1, name);
-            statement.setString(2, dataType);
+            statement.setString(2, fileType);
             statement.setBlob(3, inputStream);
 
             statement.executeUpdate();

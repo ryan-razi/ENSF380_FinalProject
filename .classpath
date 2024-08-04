@@ -6,15 +6,15 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/ryanr/OneDrive/Desktop/Jars/json-20240303.jar"/>
-	<classpathentry kind="lib" path="C:/Users/ryanr/OneDrive/Desktop/Jars/jsoup-1.18.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/ryanr/OneDrive/Desktop/Jars/webdrivermanager-5.9.1-fat.jar"/>
-	<classpathentry kind="lib" path="C:/Users/ryanr/OneDrive/Desktop/Jars/mysql-connector-j-8.0.31.jar"/>
-	<classpathentry kind="lib" path="C:/Users/ryanr/OneDrive/Desktop/Jars/selenium-api-4.22.0.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
-	<classpathentry kind="lib" path="C:/Users/ryanr/OneDrive/Desktop/Jars/marytts-client-5.0-jar-with-dependencies.jar"/>
-	<classpathentry kind="lib" path="C:/Users/ryanr/OneDrive/Desktop/Jars/marytts-lang-en-5.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/ryanr/OneDrive/Desktop/Jars/marytts-server-5.0-jar-with-dependencies.jar"/>
-	<classpathentry kind="lib" path="C:/Users/ryanr/OneDrive/Desktop/Jars/voice-cmu-slt-hsmm-5.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ryanr/OneDrive/Desktop/Eclipse2024-06/JavaProjects/ENSF380_FinalProject/Jars/json-20240303.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ryanr/OneDrive/Desktop/Eclipse2024-06/JavaProjects/ENSF380_FinalProject/Jars/jsoup-1.18.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ryanr/OneDrive/Desktop/Eclipse2024-06/JavaProjects/ENSF380_FinalProject/Jars/marytts-client-5.0-jar-with-dependencies.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ryanr/OneDrive/Desktop/Eclipse2024-06/JavaProjects/ENSF380_FinalProject/Jars/marytts-lang-en-5.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ryanr/OneDrive/Desktop/Eclipse2024-06/JavaProjects/ENSF380_FinalProject/Jars/marytts-server-5.0-jar-with-dependencies.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ryanr/OneDrive/Desktop/Eclipse2024-06/JavaProjects/ENSF380_FinalProject/Jars/mysql-connector-j-8.0.31.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ryanr/OneDrive/Desktop/Eclipse2024-06/JavaProjects/ENSF380_FinalProject/Jars/selenium-api-4.22.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ryanr/OneDrive/Desktop/Eclipse2024-06/JavaProjects/ENSF380_FinalProject/Jars/voice-cmu-slt-hsmm-5.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ryanr/OneDrive/Desktop/Eclipse2024-06/JavaProjects/ENSF380_FinalProject/Jars/webdrivermanager-5.9.1-fat.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -399,6 +399,4 @@ public class Application extends JFrame {
 		this.trainStationPanel = trainStationPanel;
 	}
 
-
-
 }
