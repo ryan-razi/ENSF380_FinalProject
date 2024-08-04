@@ -31,11 +31,11 @@ public class NewsTest {
 	@Test
 	public void testIllegalArgumentException() {
 	    try {
-	        News news = new News("dwqdqdqdqdq"); 
+	        News news = new News("ascfafcac"); 
 	        fail("Expected IllegalArgumentException to be thrown");
 	    } catch (IllegalArgumentException e) {
 	        assertEquals("No articles found for the given topic.", e.getMessage());
 	    }
 	}
-
+	
 }

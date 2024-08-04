@@ -24,7 +24,7 @@ public class News {
     private final static String apiKey = "517e93b4e94f45dcb955dca5b3da677d";
     
     public static void main(String[] args) {
-        News news = new News("ascfafcac");
+        News news = new News("Calgary");
         String[] titles = news.getTitles();
         
         for (String title : titles) {
