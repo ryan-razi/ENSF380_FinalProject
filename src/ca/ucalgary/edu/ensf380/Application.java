@@ -20,6 +20,14 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.swing.WindowConstants;
 
+
+import marytts.LocalMaryInterface;
+import marytts.MaryInterface;
+import marytts.exceptions.MaryConfigurationException;
+import marytts.util.data.audio.AudioPlayer;
+
+import javax.sound.sampled.AudioInputStream;
+
 /**
  * Main application used to display the subway screen to the user.
  * Uses JFrame in order to create a GUI for us to see everything.
@@ -38,6 +46,7 @@ public class Application extends JFrame {
 	private JPanel weatherPanel;
 	private JPanel newsPanel;
 	private JPanel trainStationPanel;
+	
 	
 	/**
 	 * Our main method. Used to create a JFrame that displays a SubwayScreen.
@@ -133,34 +142,61 @@ public class Application extends JFrame {
      */
 
 	public static JPanel createTrainStationPanel() {
+	    // create the panel
+	    JPanel panel = new JPanel(new BorderLayout());
+	    panel.setBackground(Color.BLACK);
 
-		// create the panel
-		JPanel panel = new JPanel(new BorderLayout());
-		panel.setBackground(Color.BLACK);
+	    // create the layeredPane so we can have text and image at the same time
+	    JLayeredPane layeredPane = new JLayeredPane();
 
-		// create the layeredPane so we can have text and image at same time
-		JLayeredPane layeredPane = new JLayeredPane();
+	    // get our image and turn it into a JLabel
+	    ImageIcon imageIcon = new ImageIcon("Train.jpg");
+	    JLabel imageLabel = new JLabel(imageIcon);
+	    imageLabel.setBounds(0, 0, 945, 225); // sets the location of where our image is and the dimensions of our label
 
-		// get our image and turn it into a JLabel
-		ImageIcon imageIcon = new ImageIcon("Train.jpg");
-		JLabel imageLabel = new JLabel(imageIcon);
-		imageLabel.setBounds(0, 0, 945, 225); // sets the location of where our image is and the dimensions of our label
+	    // create our text to showcase where the trains are
+	    JLabel textLabel = new JLabel("Temporary Text");
+	    textLabel.setForeground(Color.WHITE);
+	    textLabel.setFont(new Font("Arial", Font.BOLD, 24));
+	    textLabel.setBounds(20, 175, 300, 30); // sets the location of where the text is and the dimensions of our label
 
-		// create our text to showcase where the trains are
-		JLabel textLabel = new JLabel("Temporary Text");
-		textLabel.setForeground(Color.WHITE);
-		textLabel.setFont(new Font("Arial", Font.BOLD, 24));
-		textLabel.setBounds(20, 175, 300, 30); // sets the location of where the text is and the dimensions of our label
+	    // add the text and image to our layeredPane
+	    layeredPane.add(imageLabel, JLayeredPane.DEFAULT_LAYER);
+	    layeredPane.add(textLabel, JLayeredPane.PALETTE_LAYER);
 
-		// add the text and image to our layeredPane
-		layeredPane.add(imageLabel, JLayeredPane.DEFAULT_LAYER);
-		layeredPane.add(textLabel, JLayeredPane.PALETTE_LAYER);
+	    // add the layeredPane to our panel
+	    panel.add(layeredPane);
+	    
+	    // call the method to speak the text
+	    speakText("Temporary Text");
 
-		// add the layeredPane to our panel
-		panel.add(layeredPane);
-
-		return panel;
+	    return panel;
 	}
+	
+	/**
+     * Gets a string of text and audibly says it out loud for the user to hear
+     */
+	public static void speakText(String text) {
+        try {
+        	
+        	// create new instance of MaryInterface and set the voice to American English
+            MaryInterface marytts = new LocalMaryInterface();
+            marytts.setVoice("cmu-slt-hsmm");
+            
+            // generate audio from the text
+            AudioInputStream audio = marytts.generateAudio(text);
+            // create player to play the audio
+            AudioPlayer player = new AudioPlayer(audio);
+            // start the player
+            player.start();
+            
+        } catch (MaryConfigurationException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+	
 
 	/**
      * creates a panel that reads the ArrayList of advertisements and continuously displays all the ads in the list,
