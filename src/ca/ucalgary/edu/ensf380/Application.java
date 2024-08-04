@@ -1,18 +1,24 @@
 package ca.ucalgary.edu.ensf380;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
+import javax.swing.Timer;
+import javax.swing.WindowConstants;
 
 /**
  * Main application used to display the subway screen to the user.
@@ -32,8 +38,13 @@ public class Application extends JFrame {
 	private JPanel weatherPanel;
 	private JPanel newsPanel;
 	private JPanel trainStationPanel;
-
-	public static void main(String[] args) {
+	
+	/**
+	 * Our main method. Used to create a JFrame that displays a SubwayScreen.
+	 * @param args, the command line arguements
+	 * @throws SQLException when we can't access our database
+	 **/
+	public static void main(String[] args) throws SQLException {
 
 		// gets all the arguements so we can use them to create an instance of our
 		// application
@@ -41,11 +52,11 @@ public class Application extends JFrame {
 		String password = args[1];
 		String newsTopic = args[2];
 		String cityCode = args[3];
-		
+
 		// connect to the database to get our ads
 		Database db = new Database(username, password);
 		ArrayList<Advertisement> ads = db.retrieveAllAdvertisements();
-		
+
 		// create an instance of our application
 		Application app = new Application(newsTopic, cityCode, ads);
 
@@ -70,7 +81,7 @@ public class Application extends JFrame {
 		setTitle("SubwayScreen");
 
 		// program terminate when we close the frame
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
 		// size of the screen
 		setSize(945, 900);
@@ -115,12 +126,12 @@ public class Application extends JFrame {
 		add(trainStationPanel, gbc);
 
 	}
-	
+
 	/**
      * Gets data from the train station simulator, and puts it on top of an image that displays where we currently are
      * @return a JPanel with image and text over it, that is continuously updating
      */
-	
+
 	public static JPanel createTrainStationPanel() {
 
 		// create the panel
@@ -150,25 +161,25 @@ public class Application extends JFrame {
 
 		return panel;
 	}
-	
+
 	/**
-     * creates a panel that reads the ArrayList of advertisements and continuously displays all the ads in the list, 
+     * creates a panel that reads the ArrayList of advertisements and continuously displays all the ads in the list,
      * as well as the current location of the trains every once in a while
      * @param ads the ArrayList of Advertisements
      * @return a JPanel with images/gifs of ads continuously looping
      */
-	
+
 	public static JPanel createAdvertisementPanel(ArrayList<Advertisement> ads) {
-		
+
 		// create new panel
         JPanel panel = new JPanel(new BorderLayout());
-        
+
         // create the label for our ads
         JLabel adLabel = new JLabel();
         panel.add(adLabel);
 
         // timer to switch between advertisements every 10 seconds
-		
+
         Timer timer = new Timer(1000, new ActionListener() {
         	// start from the second ad
         	int index = 0;
@@ -182,47 +193,47 @@ public class Application extends JFrame {
                 index++;
             }
         });
-        
+
         // start the timer
         timer.start();
 
         return panel;
     }
-	
+
 	/**
      * creates a weather panel that displays the current temperature of the city, as well as the current time
      * @param weather, contains the city code and current weather of that city in °C
      * @return a JPanel that contains the current weather of the city in °C, as well as current time
      */
-	
+
 	// might add little icons to display how hot or cold it is
 	public static JPanel createWeatherPanel(Weather weather) {
 
 		// create the panel
 		JPanel panel = new JPanel(new GridBagLayout());
 		panel.setBackground(Color.WHITE);
-		
+
 		// gbc created so that the text does not overlap one another
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = 0;
 		gbc.gridy = 0;
-		
+
 		// create a label for displaying the time
 		JLabel timeLabel = new JLabel();
 		timeLabel.setForeground(Color.BLACK);
 		Font font = new Font("Arial", Font.BOLD, 24);
 		timeLabel.setFont(font);
-		
-		// create a label for displaying the weather 
+
+		// create a label for displaying the weather
 		JLabel tempLabel = new JLabel(weather.getTemp());
 		tempLabel.setForeground(Color.BLACK);
 		tempLabel.setFont(font);
-		
+
 		// add the time and temperature label
 		panel.add(timeLabel, gbc);
 		gbc.gridy--; // put the temperature below the time
 		panel.add(tempLabel, gbc);
-		
+
 		// timer to update the time every second
 		Timer timer = new Timer(1000, new ActionListener() {
 			@Override
@@ -237,59 +248,59 @@ public class Application extends JFrame {
 
 		return panel;
 	}
-	
+
 	/**
      * creates a weather panel that continuously scrolls with text of news relating to a certain topic
      * @param titles, a String array of news titles relating to a topic generated from an instance of the news class
      * @return a JPanel that continuously scrolls right to left displaying new titles of a topic
      */
 	public static JPanel createNewsPanel(String[] titles) {
-		
+
 		// create the panel
 		JPanel panel = new JPanel(new BorderLayout());
 		panel.setBackground(Color.BLUE);
-		
+
 		// create a string builder to hold all our news title text with a big gap between them
 		StringBuilder sb = new StringBuilder();
 		for (String title : titles) {
 			sb.append(title).append("     ");
 		}
-		
+
 		// change back into string so we can display it
 		String scrollingText = sb.toString();
-		
+
 		// create a label
 		JLabel label = new JLabel(scrollingText);
 		label.setForeground(Color.WHITE);
-		
+
 		// create font for the label
 		Font largerFont = new Font("Arial", Font.PLAIN, 20);
 		label.setFont(largerFont);
-		
+
 		// add the label to the panel
 		panel.add(label, BorderLayout.CENTER);
-		
+
 		// timer to get the text to scroll left from right
 		Timer timer = new Timer(20, new ActionListener() {
-			
+
 			int position = panel.getWidth();
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+
 				position -= 2;
-				
-				// reset the position if we scroll for too long 
+
+				// reset the position if we scroll for too long
 				if (position + label.getPreferredSize().getWidth() < 0) {
 					position = panel.getWidth();
 				}
-				
+
 				// continuously update the position of our text with the new position
 				label.setBounds(position, 0, (int) label.getPreferredSize().getWidth(),
-						(int) label.getPreferredSize().getHeight()); 
+						(int) label.getPreferredSize().getHeight());
 			}
 		});
-		
+
 		// start the timer
 		timer.start();
 
@@ -351,7 +362,7 @@ public class Application extends JFrame {
 	public void setTrainStationPanel(JPanel trainStationPanel) {
 		this.trainStationPanel = trainStationPanel;
 	}
-	
-	
+
+
 
 }

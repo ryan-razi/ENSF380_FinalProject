@@ -1,17 +1,18 @@
 package ca.ucalgary.edu.ensf380;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-
-import java.util.regex.*;
 
 /**
  * Weather class that holds the weather for a city, as well as the city code
  * related to that city. Uses the Selenium Web Driver, as well as google chrome
  * in order to retrieve the dynamic HTML code, and then parses through it using
  * RegEx to get the temperature
- * 
+ *
  * @author Ryan Razi
  * @version 1.0
  * @since 1.0

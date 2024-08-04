@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2022-2023 Mahdi Jaberzadeh Ansari and others.
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
  * "Software"), to deal in the Software without restriction, including
@@ -8,10 +8,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- *	
+ *
  *	The above copyright notice and this permission notice shall be
  *	included in all copies or substantial portions of the Software.
- *	
+ *
  *	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  *	EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  *	MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -51,7 +51,7 @@ public class MyApp2 extends JFrame implements ActionListener {
     public MyApp2() {
         super("Subway Screen");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        
+
         // Create the text area to display the output
         outputTextArea = new JTextArea();
         outputTextArea.setEditable(false);
@@ -66,11 +66,11 @@ public class MyApp2 extends JFrame implements ActionListener {
         contentPane.add(scrollPane, BorderLayout.CENTER);
         contentPane.add(stopButton, BorderLayout.SOUTH);
         setContentPane(contentPane);
-        
+
         // Set the size and visibility of the frame
         setSize(600, 400);
         setVisible(true);
-        
+
         // Launch the executable jar file
         try {
         	String[] command = {"java", "-jar", "./exe/SubwaySimulator.jar", "--in", "./data/subway.csv", "--out", "./out"};
@@ -85,7 +85,7 @@ public class MyApp2 extends JFrame implements ActionListener {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
         // Add a window listener to stop the process when the window is closed
         addWindowListener(new WindowAdapter() {
             @Override
@@ -104,11 +104,12 @@ public class MyApp2 extends JFrame implements ActionListener {
                 finalProcess.destroy();
             }
             System.exit(0);
-        }));        
+        }));
     }
 
 
-    public void actionPerformed(ActionEvent e) {
+    @Override
+	public void actionPerformed(ActionEvent e) {
         if (e.getSource() == stopButton) {
             process.destroy();
             stopButton.setEnabled(false);

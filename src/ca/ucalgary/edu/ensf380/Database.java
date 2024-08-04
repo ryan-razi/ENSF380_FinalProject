@@ -27,8 +27,9 @@ public class Database {
     /**
      * Retrieves all advertisements from the MySQL database.
      * @return an ArrayList of advertisements
+     * @throws SQLException 
      */
-    public ArrayList<Advertisement> retrieveAllAdvertisements() {
+    public ArrayList<Advertisement> retrieveAllAdvertisements() throws SQLException {
         // create an arraylist of advertisements
         ArrayList<Advertisement> advertisements = new ArrayList<>();
 
@@ -54,7 +55,8 @@ public class Database {
                 }
             }
         } catch (SQLException e) {
-
+        	// have to rethrow e because it makes my test fail if it doesn't for some reason
+        	throw e;
         }
 
         return advertisements;
