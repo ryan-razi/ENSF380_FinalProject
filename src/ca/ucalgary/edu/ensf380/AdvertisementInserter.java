@@ -19,7 +19,7 @@ public class AdvertisementInserter {
     public static void main(String[] args) {
 
     	// put name of ad, filetype extension of ad (gif, jpg/jpeg), path to ad
-        insertAd("Disney", "jpg", "\\path");
+        insertAd("Nike", "jpg", "C:\\Users\\ryanr\\OneDrive\\Desktop\\JavaProjects\\ENSF380_FinalProject\\Advertisements\\Nike.jpg");
     }
     
     /**
