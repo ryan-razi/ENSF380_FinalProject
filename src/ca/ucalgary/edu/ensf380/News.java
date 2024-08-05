@@ -22,7 +22,7 @@ public class News {
 
 	private String topic;
 	private String[] titles;
-	private final static String apiKey = "4bc583cf1248494ab61784a10ddc0af9";
+	private final static String APIKEY = "4bc583cf1248494ab61784a10ddc0af9";
 
 	public static void main(String[] args) {
 		News news = new News("Calgary");
@@ -55,6 +55,10 @@ public class News {
 	public void setTitles(String[] titles) {
 		this.titles = titles;
 	}
+	
+	public static String getAPIKEY() {
+		return APIKEY;
+	}
 
 	/**
 	 * Generates news based on a topic that is given.
@@ -75,7 +79,7 @@ public class News {
 		
 		try {
 			// Create the url for the news we want to get information about
-			URL url = new URL("https://newsapi.org/v2/everything?q=" + topic + "&language=en&apiKey=" + apiKey);
+			URL url = new URL("https://newsapi.org/v2/everything?q=" + topic + "&language=en&apiKey=" + APIKEY);
 
 			// Open connection
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();

@@ -74,7 +74,7 @@ public class Application extends JFrame {
 
 	}
 
-	public Application(String newsTopic,  String cityCode, ArrayList<Advertisement> ads) {
+	public Application(String newsTopic, String cityCode, ArrayList<Advertisement> ads) {
 
 		this.news = new News(newsTopic);
 		this.ads = ads;

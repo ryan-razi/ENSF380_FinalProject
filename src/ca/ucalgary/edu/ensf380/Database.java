@@ -15,13 +15,13 @@ import java.util.ArrayList;
  * @since 1.0
  */
 public class Database {
-    private final String user;
-    private final String password;
+    private final String USER;
+    private final String PASSWORD;
     private final String DATABASE = "jdbc:mysql://localhost:3306/advertisements";
 
     public Database(String user, String password) {
-        this.user = user;
-        this.password = password;
+        this.USER = user;
+        this.PASSWORD = password;
     }
 
     /**
@@ -33,7 +33,7 @@ public class Database {
         // create an arraylist of advertisements
         ArrayList<Advertisement> advertisements = new ArrayList<>();
 
-        try (Connection connection = DriverManager.getConnection(DATABASE, user, password)) {
+        try (Connection connection = DriverManager.getConnection(DATABASE, USER, PASSWORD)) {
             // sql query to get all the data from our database
             String query = "SELECT name, type, data FROM Ads";
             try (PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -61,4 +61,18 @@ public class Database {
 
         return advertisements;
     }
+
+	public String getUSER() {
+		return USER;
+	}
+
+	public String getPASSWORD() {
+		return PASSWORD;
+	}
+
+	public String getDATABASE() {
+		return DATABASE;
+	}
+    
+    
 }

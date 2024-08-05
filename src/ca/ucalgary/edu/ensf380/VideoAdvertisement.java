@@ -16,4 +16,13 @@ public class VideoAdvertisement extends Advertisement {
 		this.videoLength = videoLength;
 	}
 
+	public double getVideoLength() {
+		return videoLength;
+	}
+
+	public void setVideoLength(double videoLength) {
+		this.videoLength = videoLength;
+	}
+	
+	
 }
