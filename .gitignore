@@ -1,1 +1,7 @@
+# Ignore class files and build directories
 /bin/
+
+# Eclipse specific files
+.classpath
+.project
+.settings/
