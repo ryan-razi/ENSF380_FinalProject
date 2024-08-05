@@ -44,6 +44,16 @@ Secondly, after doing some random testing; I think that openweather.org is a bit
 
 This will cause an error because I think it can't load or find the HTML code that has the temperature in it, because nothing has been displayed yet. The fix is simple, just go to the website for the city you want to get the weather for and wait for the page to load, so then you know for sure that the program can load and actually get the weather that it needs. It should look like this ![alt text](image-2.png)
 
+Furthermore, Google Chrome must be installed to run the program, since it uses chrome to actually fetch the data that needed from the website.
+
 ## Running the program
 
-This is the easiest part. Simply go to the class called "Application," and run it as a Java Application (remembering that you might have to wait a bit for the weather to load). Then you should be able to see the subway screen in action, fully functional in every which way.
+Before running the program, there is one last thing that needs to be done. Right click on the Application class in your Java Project and then click Run As --> Run Configurations. This will bring up another menu, go on to the Arguments tab to set up the arguments as follows:
+
+username to the database, password to the database, news topic, city code
+
+* commas added for clarity on argument topics, no commas are actually need in the argument section, just 4 words with spaces between them relating to those topics.
+
+This allows you to log in to the database without having to manually modify the code to type in your username and password, as well as let you choose the topic of what type of news you want displayed, as well as which city we are getting our weather from.
+
+Now for the easiest part. Simply go to the class called "Application," and run it as a Java Application (remembering that you might have to wait a bit for the weather to load). Then you should be able to see the subway screen in action, fully functional in every which way.
