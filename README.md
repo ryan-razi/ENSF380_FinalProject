@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS ads (
 );
 
 Afterwards, please use the AdvertisementInserter class, and replace all the commented locations with
-the required information (user, password, name of ad, filetype extension, path to advertisement).
+the required information (user, password, name of ad, filetype extension, path to advertisement). Then run the program as a Java application.
 
 Keep doing this until you have no more ads left to add. The recommended size for the ads is 750 x 400 (on a regular laptop monitor). This ensures that the frame doesn't look scuffed and all the text appers properly. There is a folder filled with ads called "Advertisements" that I have already pre-made, so that you can run the application with properly sized ads.
 
