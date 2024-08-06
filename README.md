@@ -52,7 +52,7 @@ Before running the program, there is one last thing that needs to be done. Right
 
 username to the database, password to the database, news topic, city code, train that you want to follow
 
-* commas added for clarity on argument topics, no commas are actually need in the argument section, just 4 words with spaces between them relating to those topics.
+* commas added for clarity on argument topics, no commas are actually need in the argument section, just 5 words with spaces between them relating to those topics.
 * An example of a input is:
 * root myP4ssw0rd Calgary 5913490 T01
 
