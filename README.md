@@ -54,7 +54,7 @@ username to the database, password to the database, news topic, city code, train
 
 * commas added for clarity on argument topics, no commas are actually need in the argument section, just 5 words with spaces between them relating to those topics.
 * An example of a input is:
-* root myP4ssw0rd Calgary 5913490 T01
+* root myP4ssw0rd Calgary 5913490 T1
 
 This allows you to log in to the database without having to manually modify the code to type in your username and password, as well as let you choose the topic of what type of news you want displayed, as well as which city we are getting our weather from.
 
