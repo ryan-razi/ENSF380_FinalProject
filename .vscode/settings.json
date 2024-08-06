@@ -1,0 +1,16 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "Jars/json-20240303.jar",
+        "Jars/jsoup-1.18.1.jar",
+        "Jars/marytts-client-5.0-jar-with-dependencies.jar",
+        "Jars/marytts-lang-en-5.0.jar",
+        "Jars/marytts-server-5.0-jar-with-dependencies.jar",
+        "Jars/mockito-core-5.12.0.jar",
+        "Jars/mysql-connector-j-8.0.31.jar",
+        "Jars/selenium-api-4.22.0.jar",
+        "Jars/voice-cmu-slt-hsmm-5.0.jar",
+        "Jars/webdrivermanager-5.9.1-fat.jar"
+    ],
+    "java.debug.settings.onBuildFailureProceed": true
+}

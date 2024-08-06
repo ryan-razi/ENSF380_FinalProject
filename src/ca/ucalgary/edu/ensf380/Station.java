@@ -1,44 +1,38 @@
 package ca.ucalgary.edu.ensf380;
 
+/**
+ * Represents a station with its code, name, coordinates, line code, and common stations.
+ * @author JindJeet Cheema
+ * @version 1.0
+ * @since 1.0
+ */
+ 
 public class Station {
-    private int row;
-    private String line;
-    private int stationNumber;
-    private String stationCode;
-    private String stationName;
-    private double x;
-    private double y;
-    private String commonStations;
+    private final String stationCode;
+    private final int stationNumber;
+    private final String stationName;
+    private final double x;
+    private final double y;
+    private final String lineCode;
+    private final String commonStations;
 
-    public Station(int row, String line, int stationNumber, String stationCode, String stationName, double x, double y, String commonStations) {
-        this.row = row;
-        this.line = line;
-        this.stationNumber = stationNumber;
+    public Station(String lineCode, int stationNumber, String stationCode, String stationName, double x, double y, String commonStations) {
         this.stationCode = stationCode;
+        this.stationNumber = stationNumber;
         this.stationName = stationName;
         this.x = x;
         this.y = y;
+        this.lineCode = lineCode;
         this.commonStations = commonStations;
     }
 
-    public int getRow() {
-        return row;
-    }
-
-    public String getLine() {
-        return line;
-    }
-
-    public int getStationNumber() {
-        return stationNumber;
-    }
-
+    // Getters for the station properties
     public String getStationCode() {
         return stationCode;
     }
 
-    public String getStationName() {
-        return stationName;
+    public int getStationNumber() {
+        return stationNumber;
     }
 
     public double getX() {
@@ -49,20 +43,26 @@ public class Station {
         return y;
     }
 
+    public String getLineCode() {
+        return lineCode;
+    }
+
     public String getCommonStations() {
         return commonStations;
     }
 
-    @Override
+    public String getStationName() {
+        return stationName;
+    }
+
     public String toString() {
         return "Station{" +
-                "row=" + row +
-                ", line='" + line + '\'' +
+                "stationCode='" + stationCode + '\'' +
                 ", stationNumber=" + stationNumber +
-                ", stationCode='" + stationCode + '\'' +
                 ", stationName='" + stationName + '\'' +
                 ", x=" + x +
                 ", y=" + y +
+                ", lineCode='" + lineCode + '\'' +
                 ", commonStations='" + commonStations + '\'' +
                 '}';
     }

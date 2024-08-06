@@ -10,6 +10,7 @@ import java.sql.SQLException;
 /**
  * AdvertisementInserter class used to help user insert ads to the MySQL database
  * @author Ryan Razi
+ * @author Jindjeet Cheema
  * @version 1.0
  * @since 1.0
  */
@@ -19,7 +20,9 @@ public class AdvertisementInserter {
     public static void main(String[] args) {
 
     	// put name of ad, filetype extension of ad (gif, jpg/jpeg), path to ad
-        insertAd("Nike", "jpg", "C:\\Users\\ryanr\\OneDrive\\Desktop\\JavaProjects\\ENSF380_FinalProject\\Advertisements\\Nike.jpg");
+        insertAd("Nike", "jpg", "Advertisements\\Disney.jpg");
+        insertAd("Nike", "jpg", "Advertisements\\CocaCola.gif");
+        insertAd("Nike", "jpg", "Advertisements\\Nike.jpg");
     }
     
     /**
